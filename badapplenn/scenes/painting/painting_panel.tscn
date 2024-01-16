@@ -1,0 +1,155 @@
+[gd_scene load_steps=17 format=3 uid="uid://colg0pb36rvyp"]
+
+[ext_resource type="Script" path="res://scripts/painting_panel.gd" id="1_acqu0"]
+[ext_resource type="Script" path="res://scripts/interact/interactables/Board.gd" id="2_2vwd5"]
+[ext_resource type="Script" path="res://scripts/interact/interactables/ClearButton.gd" id="3_a4c5h"]
+[ext_resource type="Script" path="res://scripts/interact/interactables/SubmitButton.gd" id="4_lqpr7"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_fo4ws"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cjnwx"]
+albedo_color = Color(1, 0.101961, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_hnecu"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3sm5v"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_bhdwa"]
+viewport_path = NodePath("clear_button/SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0bt58"]
+resource_local_to_scene = true
+albedo_texture = SubResource("ViewportTexture_bhdwa")
+emission_enabled = true
+uv1_scale = Vector3(3, 2, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_8some"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dbmcw"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_huabx"]
+viewport_path = NodePath("subit_button/SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p4yfb"]
+resource_local_to_scene = true
+albedo_texture = SubResource("ViewportTexture_huabx")
+emission_enabled = true
+uv1_scale = Vector3(3, 2, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_gomlr"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_1bwnc"]
+
+[node name="painting_panel" type="Node3D"]
+script = ExtResource("1_acqu0")
+
+[node name="board" type="MeshInstance3D" parent="."]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 1, 1, 0, 0)
+transparency = 1.0
+mesh = SubResource("BoxMesh_fo4ws")
+
+[node name="panel" type="MeshInstance3D" parent="board"]
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 1, 0, 0, -0.1)
+layers = 2
+material_overlay = SubResource("StandardMaterial3D_cjnwx")
+transparency = 1.0
+cast_shadow = 0
+mesh = SubResource("BoxMesh_hnecu")
+
+[node name="collidable_panel" type="StaticBody3D" parent="board/panel"]
+collision_layer = 2
+script = ExtResource("2_2vwd5")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="board/panel/collidable_panel"]
+shape = SubResource("BoxShape3D_3sm5v")
+
+[node name="clear_button" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, -1.25, -0.1)
+material_overlay = SubResource("StandardMaterial3D_0bt58")
+mesh = SubResource("BoxMesh_8some")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="clear_button"]
+collision_layer = 2
+script = ExtResource("3_a4c5h")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="clear_button/StaticBody3D"]
+shape = SubResource("BoxShape3D_dbmcw")
+
+[node name="SubViewport" type="SubViewport" parent="clear_button"]
+size = Vector2i(500, 500)
+
+[node name="ColorRect" type="ColorRect" parent="clear_button/SubViewport"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.847059, 0.0862745, 0.388235, 1)
+
+[node name="Label" type="Label" parent="clear_button/SubViewport"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -125.0
+offset_top = -68.5
+offset_right = 125.0
+offset_bottom = 68.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 100
+text = "Clear"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="subit_button" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 1.25, -0.1)
+material_overlay = SubResource("StandardMaterial3D_p4yfb")
+mesh = SubResource("BoxMesh_gomlr")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="subit_button"]
+collision_layer = 2
+script = ExtResource("4_lqpr7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="subit_button/StaticBody3D"]
+shape = SubResource("BoxShape3D_dbmcw")
+
+[node name="SubViewport" type="SubViewport" parent="subit_button"]
+size = Vector2i(500, 500)
+
+[node name="ColorRect" type="ColorRect" parent="subit_button/SubViewport"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.321569, 0.698039, 0.996078, 1)
+
+[node name="Label" type="Label" parent="subit_button/SubViewport"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -125.0
+offset_top = -68.5
+offset_right = 125.0
+offset_bottom = 68.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 100
+text = "Submit"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
+
+[node name="wall" type="MeshInstance3D" parent="."]
+transform = Transform3D(8, 0, 0, 0, 5, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_1bwnc")
+
+[connection signal="reset_cursor_coordinate" from="board/panel/collidable_panel" to="." method="_on_collidable_panel_reset_cursor_coordinate"]
+[connection signal="update_board" from="board/panel/collidable_panel" to="." method="_on_collidable_panel_update_board"]
+[connection signal="clear_board" from="clear_button/StaticBody3D" to="." method="_on_static_body_3d_clear_board"]
+[connection signal="submit" from="subit_button/StaticBody3D" to="." method="_on_static_body_3d_submit"]

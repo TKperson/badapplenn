@@ -1,0 +1,26 @@
+# https://github.com/godotengine/godot-demo-projects/blob/master/.gitignore
+# Godot 4+ specific ignores
+badapplenn/.godot/
+
+# Godot-specific ignores
+badapplenn/.import/
+badapplenn/export.cfg
+badapplenn/export_presets.cfg
+# Dummy HTML5 export presets file for continuous integration
+!.github/dist/export_presets.cfg
+
+# Imported translations (automatically generated from CSV files)
+*.translation
+
+# Mono-specific ignores
+.mono/
+data_*/
+mono_crash.*.json
+
+# System/tool-specific ignores
+.directory
+.DS_Store
+*~
+*.blend1
+
+__pycache__

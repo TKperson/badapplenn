@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://diu04l8g80c4l"]
+
+[ext_resource type="PackedScene" uid="uid://dkkj5ats2ruft" path="res://assets/apple.blend" id="1_vvkeg"]
+
+[node name="apple" instance=ExtResource("1_vvkeg")]
+
+[node name="branch" parent="." index="0"]
+transparency = 1.0
+
+[node name="apple" parent="." index="1"]
+transparency = 1.0
+
+[node name="leaf" parent="." index="2"]
+transparency = 1.0

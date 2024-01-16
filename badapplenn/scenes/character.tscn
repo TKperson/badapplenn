@@ -1,0 +1,48 @@
+[gd_scene load_steps=6 format=3 uid="uid://cwl485s5tk672"]
+
+[ext_resource type="Script" path="res://scripts/character.gd" id="1_dccfc"]
+[ext_resource type="Script" path="res://scripts/interact/interaction.gd" id="2_oy2n1"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_0t3e8"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_iy83v"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_niyvp"]
+
+[node name="CharacterBody3D" type="CharacterBody3D"]
+script = ExtResource("1_dccfc")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+cast_shadow = 0
+mesh = SubResource("CapsuleMesh_0t3e8")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_iy83v")
+
+[node name="head" type="Node3D" parent="."]
+
+[node name="Camera3D" type="Camera3D" parent="head"]
+
+[node name="RayCast3D" type="RayCast3D" parent="head/Camera3D"]
+target_position = Vector3(0, 0, -8)
+collision_mask = 2
+script = ExtResource("2_oy2n1")
+
+[node name="apple_position" type="Node3D" parent="head/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.76247)
+
+[node name="ColorRect" type="ColorRect" parent="head/Camera3D"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -2.5
+offset_top = -2.5
+offset_right = 2.5
+offset_bottom = 2.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="head/Camera3D"]
+mesh = SubResource("CylinderMesh_niyvp")

@@ -1,0 +1,98 @@
+[gd_scene load_steps=12 format=3 uid="uid://ctohxlodk12o4"]
+
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_snibo"]
+[ext_resource type="Shader" path="res://shaders/dashgrid.gdshader" id="1_wlk5v"]
+[ext_resource type="PackedScene" uid="uid://cwl485s5tk672" path="res://scenes/character.tscn" id="2_vtq6p"]
+[ext_resource type="PackedScene" uid="uid://colg0pb36rvyp" path="res://scenes/painting/painting_panel.tscn" id="3_63vdl"]
+[ext_resource type="PackedScene" uid="uid://cmbny8ekxlp0" path="res://scenes/dnn/neural_net.tscn" id="4_u5x1k"]
+[ext_resource type="PackedScene" uid="uid://bhl73uvltka8u" path="res://scenes/podium.tscn" id="7_hkaje"]
+[ext_resource type="Script" path="res://scripts/dnn/labels.gd" id="7_ywkyk"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3q1y4"]
+render_priority = 0
+shader = ExtResource("1_wlk5v")
+shader_parameter/subdivisions = 38.0
+shader_parameter/grid_width = 0.02
+shader_parameter/background_color = Color(0.2, 0.2, 0.2, 1)
+shader_parameter/background_color_two = Color(0.1, 0.1, 0.1, 1)
+shader_parameter/grid_color = Color(0.5, 0.5, 0.5, 1)
+shader_parameter/dashed_scale_x = 0.02
+shader_parameter/dashed_scale_y = 0.02
+shader_parameter/dashed_count_x = 1.0
+shader_parameter/dashed_count_y = 1.0
+shader_parameter/point_width = 0.021
+shader_parameter/point_color = Color(0, 0, 0, 1)
+shader_parameter/point_scale_x = 0.05
+shader_parameter/point_scale_y = 0.05
+shader_parameter/inside_width = 0.01
+shader_parameter/inside_subdivisions = 6.0
+shader_parameter/inside_color = Color(0.4, 0.4, 0.4, 1)
+shader_parameter/in_dashed_scale_x = 0.3
+shader_parameter/in_dashed_scale_y = 0.3
+shader_parameter/in_dashed_count_x = 6.0
+shader_parameter/in_dashed_count_y = 6.0
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_e7puk"]
+sky_top_color = Color(0.113725, 0.0117647, 0.25098, 1)
+sky_horizon_color = Color(0.113725, 0.0117647, 0.25098, 1)
+ground_bottom_color = Color(0.113725, 0.0117647, 0.25098, 1)
+ground_horizon_color = Color(0.113725, 0.0117647, 0.25098, 1)
+
+[sub_resource type="Sky" id="Sky_af84u"]
+sky_material = SubResource("ProceduralSkyMaterial_e7puk")
+
+[sub_resource type="Environment" id="Environment_nr0ri"]
+background_mode = 2
+sky = SubResource("Sky_af84u")
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="world" type="Node3D"]
+script = ExtResource("1_snibo")
+
+[node name="stage" type="Node3D" parent="."]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="stage"]
+transform = Transform3D(5, 0, 0, 0, 1, 0, 0, 0, 5, 0, -0.5, 0)
+material_overlay = SubResource("ShaderMaterial_3q1y4")
+use_collision = true
+size = Vector3(20, 1, 20)
+
+[node name="painting_panel" parent="stage" instance=ExtResource("3_63vdl")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -3, 2.5, 5)
+resolution = 81
+
+[node name="neural net" parent="stage" instance=ExtResource("4_u5x1k")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -11, 8, -9.82999)
+
+[node name="labels" type="Node3D" parent="stage/neural net"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 9, -6, -1.9143)
+script = ExtResource("7_ywkyk")
+
+[node name="podium" parent="stage" instance=ExtResource("7_hkaje")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.34052, 0, -16.1586)
+
+[node name="env" type="Node3D" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="env"]
+environment = SubResource("Environment_nr0ri")
+
+[node name="redlight" type="DirectionalLight3D" parent="env"]
+transform = Transform3D(-0.866025, -0.433013, 0.25, -0.229464, 0.788433, 0.570719, -0.444237, 0.436891, -0.782164, 0, 6.17494, -20.3229)
+light_color = Color(0.847059, 0.0862745, 0.388235, 1)
+sky_mode = 1
+
+[node name="bluelight" type="DirectionalLight3D" parent="env"]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0.480633, -0.58314, 0.654935, -0.13781, 0.687349, 0.713134, -11.3407, 6.17494, 12.2998)
+light_color = Color(0.321569, 0.698039, 0.996078, 1)
+sky_mode = 1
+
+[node name="whitelight" type="DirectionalLight3D" parent="env"]
+transform = Transform3D(-0.438618, 0.0489101, 0.897342, 0.846058, -0.314174, 0.430675, 0.302985, 0.948105, 0.0964213, 28.9711, 16.9399, 0.26262)
+light_energy = 0.3
+shadow_enabled = true
+sky_mode = 1
+
+[node name="character" parent="." instance=ExtResource("2_vtq6p")]
+transform = Transform3D(0.123411, 0, 0.992356, 0, 1, 0, -0.992356, 0, 0.123411, 5.21934, 0.88169, -0.308351)
+collision_layer = 5

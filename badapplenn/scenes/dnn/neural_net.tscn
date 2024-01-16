@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://cmbny8ekxlp0"]
+
+[ext_resource type="Script" path="res://scripts/dnn/neural_net.gd" id="1_danyx"]
+
+[node name="neural net" type="Node3D"]
+script = ExtResource("1_danyx")
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.033

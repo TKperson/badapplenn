@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://3hwcbaewhfqt"]
+
+[ext_resource type="Script" path="res://scripts/interact/interactables/PlayBadAppleButton.gd" id="1_xjq7r"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_woiax"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_lms8o"]
+
+[node name="play bad apple button" type="Node3D"]
+
+[node name="box" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_woiax")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="box"]
+collision_layer = 2
+script = ExtResource("1_xjq7r")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="box/StaticBody3D"]
+shape = SubResource("BoxShape3D_lms8o")
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]

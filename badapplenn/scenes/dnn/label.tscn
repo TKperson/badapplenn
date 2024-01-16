@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://hy83rg1jk8yv"]
+
+[ext_resource type="Script" path="res://scripts/label.gd" id="1_p8m1n"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_inbul"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1tdg1"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_07fcr"]
+
+[node name="label" type="Sprite3D"]
+billboard = 1
+texture = SubResource("ViewportTexture_inbul")
+script = ExtResource("1_p8m1n")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
+
+[node name="Label" type="Label" parent="SubViewport"]
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 200
+text = "asdf"
+
+[node name="box" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.54194, 0)
+material_overlay = SubResource("StandardMaterial3D_1tdg1")
+mesh = SubResource("BoxMesh_07fcr")

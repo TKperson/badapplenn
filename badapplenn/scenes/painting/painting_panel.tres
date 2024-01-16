@@ -1,0 +1,11 @@
+[gd_resource type="VisualShader" format=3 uid="uid://trd4yaifso8"]
+
+[resource]
+code = "shader_type spatial;
+render_mode blend_mix, depth_draw_always, cull_back, diffuse_lambert, specular_schlick_ggx, shadow_to_opacity;
+
+
+
+"
+modes/depth_draw = 1
+flags/shadow_to_opacity = true
