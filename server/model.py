@@ -101,7 +101,7 @@ class Model:
         return bytes(scaled_ouputs)
 
 if __name__ == '__main__':
-    model_path = '/home/kanna/ml/models/badapple_in_nn/badapple_in_nn.onnx'
+    model_path = open("./path.conf").read().strip()
     model = Model(
         onnx_path=model_path, 
         display_size=(360 // 3, 480 // 3),

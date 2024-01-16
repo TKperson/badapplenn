@@ -5,8 +5,11 @@ import numpy as np
 app = flask.Flask(__name__)
 
 print("loading model")
+with open("./path.conf") as f:
+    model_path = f.read().strip()
+
 model = Model(
-    onnx_path='/home/kanna/ml/models/badapple_in_nn/badapple_in_nn.onnx', 
+    onnx_path=model_path, 
     display_size=(360 // 3, 480 // 3),
     interpreter_layers=10,
 )
